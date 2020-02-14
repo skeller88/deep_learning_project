@@ -1,0 +1,22 @@
+name: null
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - dask
+  - imageio
+  - jupyter
+  - python=3.6
+  - pandas
+  - pip
+  - numpy
+  - scikit-learn
+  - pip:
+    - albumentations
+    - google-cloud-storage
+    - hyperopt
+    - opencv-python
+    - requests
+    - rasterio
+    - seaborn
+    - tensorflow-gpu==2.0.*
