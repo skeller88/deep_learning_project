@@ -40,11 +40,10 @@ WORKDIR $PROJECT_DIR
 # build the conda environment
 ENV ENV_PREFIX $PROJECT_DIR/env
 
-
 RUN cat ~/.bashrc
 RUN echo $PATH
 
-COPY ./data_science/jupyter_tensorflow_notebook/environment.yml ./environment.yml
+COPY ./data_science/hyperparameter_tuner/environment.yml ./environment.yml
 
 RUN conda update --name base --channel defaults conda && \
     conda env create --prefix $ENV_PREFIX --file ./environment.yml --force && \
@@ -60,6 +59,8 @@ COPY ./data_science ./data_science
 COPY ./data_engineering ./data_engineering
 COPY ./.gcs ./.gcs
 
+RUN mkdir /mnt/big-earth-data
+
 # RUN mkdir -p /host_mnt
 # RUN chown newuser /host_mnt
 # USER newuser
@@ -71,12 +72,4 @@ ENV PYTHONPATH "${PYTHONPATH}:/app"
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 RUN echo $LD_LIBRARY_PATH
 
-# Set default JUPYTER_PASSWORD_SHA at build time https://vsupalov.com/docker-arg-vs-env/
-ARG jupyter_password_sha_build_arg
-# Password to login to the jupyter notebook
-ENV JUPYTER_PASSWORD_SHA $jupyter_password_sha_build_arg
-
-# Need to reactivate the bash shell for `conda init` to take effect
-CMD ["bash", "-c", "source activate && echo $JUPYTER_PASSWORD_SHA && conda activate $ENV_PREFIX && jupyter notebook --ip 0.0.0.0 --allow-root \
---notebook-dir /home/jovyan/work \
---NotebookApp.password=$JUPYTER_PASSWORD_SHA"]
+CMD ["python", "data_science/hyperparameter_tuner/main.py"]

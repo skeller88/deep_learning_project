@@ -1,0 +1,82 @@
+# Test data
+splits/*
+
+# This file is git-ignored so that secrets aren't committed to version control
+.bash/env_secrets
+*.list
+*.gcs
+*.csv
+
+# Intellij
+atlassian-ide-plugin.xml
+.idea/
+*.iml
+*.iws
+*.ipr
+*.ids
+
+# Eclipse
+.classpath
+.project
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon
+
+ehthumbs.db
+Thumbs.db
+*.pyc
+
+# Spark build files
+spark_submit.egg-info/
+dist
+# Build files
+.gradle
+build/
+out/
+*/*out
+*/build
+local.properties
+*/*local.properties
+build.log
+*/*build.log
+target/
+*/target
+to_include.gradle
+
+/node_modules/
+*/node_modules/buster/
+*/node_modules/buster-amd/
+*/node_modules/buster-selenium/
+*/node_modules/buster-istanbul
+*/node_modules/phantomjs/
+*/node_modules/css-loader/
+*/node_modules/extract-text-webpack-plugin/
+*/node_modules/file-loader/
+*/node_modules/script-loader/
+*/node_modules/style-loader/
+*/node_modules/webpack/
+
+# Node Version Manager config
+.nvmrc
+
+.java-version
+
+# Ignore local vagrant files
+.vagrant
+
+# Ignore
+_ajdump/
+
+.java-version
+
+# Files associated with Python code used in development
+*.pyc
+venv
+
+# Caches for git
+.commit-count-cache

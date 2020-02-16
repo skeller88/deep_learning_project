@@ -29,7 +29,7 @@ def basic_cnn_model(img_shape, n_classes):
     return Model(inputs=img_inputs, outputs=output)
 
 
-def basic_cnn_model_with_regularization(img_shape, n_classes):
+def basic_cnn_model_with_regularization(img_shape, n_classes, should_add_dropout=False):
     """
     From https://arxiv.org/pdf/1902.06148.pdf
 
@@ -54,7 +54,12 @@ def basic_cnn_model_with_regularization(img_shape, n_classes):
     flatten = Flatten()(bn_3)
     dense_1 = Dense(64, activation='relu', kernel_initializer=kernel_initializer, use_bias=False)(flatten)
     bn_dense_1 = BatchNormalization()(dense_1)
-    output = Dense(n_classes, activation='sigmoid')(bn_dense_1)
+    if should_add_dropout:
+        dense_2 = Dense(256, activation='relu', kernel_initializer=kernel_initializer, use_bias=False)(bn_dense_1)
+        dropout = Dropout(.2)(dense_2)
+        output = Dense(n_classes, activation='sigmoid')(dropout)
+    else:
+        output = Dense(n_classes, activation='sigmoid')(bn_dense_1)
 
     return Model(inputs=img_inputs, outputs=output)
 

@@ -7,7 +7,6 @@ import tensorflow
 def get_image_dataset(x, y, augmentations, image_processor, band_stats, batch_size):
     def image_path_and_label(image_paths, labels):
         for idx, image_path in enumerate(image_paths):
-            # Have to return tensors
             yield image_path, labels[idx]
 
     means = band_stats['mean'].values
@@ -34,7 +33,6 @@ def get_image_dataset(x, y, augmentations, image_processor, band_stats, batch_si
 
     dataset = tensorflow.data.Dataset.from_generator(image_path_and_label,
                                              output_types=(tensorflow.string, tensorflow.uint8),
-                                             #                                  output_shapes=((1,), (1,)),
                                              args=(x, y,)).shuffle(buffer_size=len(x))
     dataset = dataset.map(tf_image_loader, num_parallel_calls=8)
 
@@ -66,7 +64,7 @@ def get_predictions_for_dataset(dataset, model, threshold=.5):
 
 def sanity_check_dataset(x, y, augmentations, band_stats, batch_size):
     dataset = get_image_dataset(x, y, augmentations=augmentations, band_stats=band_stats,
-                                      batch_size=batch_size)
+                                      batch_size=batch_size, image_processor=None)
     num_outputs = 0
     train_iter = dataset.make_one_shot_iterator()
     imgs, labels = train_iter.get_next()

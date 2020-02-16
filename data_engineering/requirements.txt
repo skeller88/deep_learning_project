@@ -1,0 +1,4 @@
+google-cloud-storage~=1.23.0
+requests~=2.22.0
+imageio
+numpy

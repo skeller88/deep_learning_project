@@ -55,7 +55,7 @@ class ModelCheckpointGCS(ModelCheckpoint):
                 blob.upload_from_filename(self.model_filepath)
 
                 self.model_metadata.update({
-                    'epoch': str(epoch),
+                    'epoch_with_best_model': str(epoch),
                     'history': {key: value.astype(np.float64) for key, value in logs.items()},
                     'elapsed_train_time': time.time() - self.train_start_time
                 })

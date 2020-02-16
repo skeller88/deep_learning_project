@@ -1,0 +1,6 @@
+google-cloud-storage~=1.19.0
+pandas~=0.25.0
+pillow~=7.0.0
+numpy~=1.17.0
+scikit-learn~=0.22.0
+requests~=2.22.0

@@ -20,7 +20,7 @@ echo "nvidia-smi is installed"
 gcloud auth configure-docker
 echo "Docker run with GPUs"
 # Wait until disk is mounted
-export MOUNTPOINT=/mnt/disks/gce-containers-mounts/gce-persistent-disks/big-earth-data
+export MOUNTPOINT=YOUR_DISK_PATH
 sudo mkdir -p $MOUNTPOINT
 while [[ "$(lsblk -o MOUNTPOINT -nr /dev/sdb)" != $MOUNTPOINT ]]
 do
@@ -33,5 +33,5 @@ echo "Mounted disk at $MOUNTPOINT"
 docker run -d --gpus all --log-driver=gcplogs \
 -p 8888:8888 \
 --volume $MOUNTPOINT:/home/jovyan/work \
-us.gcr.io/big-earth-1234/jupyter_tensorflow_notebook
+us.gcr.io/$GCP_PROJECT/jupyter_tensorflow_notebook
 echo "started notebook"
